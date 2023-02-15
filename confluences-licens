@@ -1,0 +1,9 @@
+SELECT u.lower_user_name, d.directory_name
+FROM cwd_user u
+JOIN cwd_membership m ON u.id = child_user_id
+JOIN cwd_group g ON m.parent_id = g.id
+JOIN SPACEPERMISSIONS sp ON g.group_name = sp.PERMGROUPNAME
+JOIN cwd_directory d on u.directory_id = d.id
+WHERE sp.PERMTYPE='USECONFLUENCE' AND u.active = 'T' AND d.active = 'T'
+GROUP BY u.lower_user_name, d.directory_name
+ORDER BY d.directory_name;
